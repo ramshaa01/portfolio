@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ramsha Fatima — AI/ML &amp; Data Science Portfolio</title>
 <meta name="description" content="Portfolio of Ramsha Fatima, a final-year B.Tech CSE (AI &amp; ML) student building AI, data science and cybersecurity projects.">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34 34'%3E%3Crect width='34' height='34' rx='8' fill='%230B0D12'/%3E%3Ccircle cx='17' cy='17' r='13.5' stroke='%238C85FF' stroke-width='1.6' fill='none'/%3E%3Ccircle cx='11' cy='12' r='2.3' fill='%238C85FF'/%3E%3Ccircle cx='23' cy='12' r='2.3' fill='%23E8A23D'/%3E%3Ccircle cx='17' cy='23' r='2.3' fill='%238C85FF'/%3E%3Cline x1='11' y1='12' x2='23' y2='12' stroke='%238C85FF' stroke-width='1.1'/%3E%3Cline x1='11' y1='12' x2='17' y2='23' stroke='%238C85FF' stroke-width='1.1'/%3E%3Cline x1='23' y1='12' x2='17' y2='23' stroke='%238C85FF' stroke-width='1.1'/%3E%3C/svg%3E"><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -87,7 +87,9 @@
   .chip{
     font-family:var(--font-mono); font-size:.74rem; padding:6px 12px; border-radius:999px;
     border:1px solid var(--border); color:var(--text-dim); background:var(--bg-soft);
+    transition:transform .2s ease, border-color .2s ease, color .2s ease;
   }
+  .chip:hover{ transform:translateY(-2px); border-color:var(--accent); color:var(--accent); }
   .icon-link{
     width:38px; height:38px; display:inline-flex; align-items:center; justify-content:center;
     border:1px solid var(--border); border-radius:10px; color:var(--text-dim);
@@ -97,6 +99,35 @@
 
   .reveal{ opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s ease; }
   .reveal.in{ opacity:1; transform:translateY(0); }
+  .reveal.stagger.in{ transition-delay:var(--stagger-delay, 0ms); }
+
+  /* hero entrance */
+  @keyframes heroFadeUp{ from{opacity:0; transform:translateY(18px);} to{opacity:1; transform:translateY(0);} }
+  .hero-anim{ opacity:0; animation:heroFadeUp .8s cubic-bezier(.22,.9,.32,1) forwards; }
+  .hero .badge.hero-anim{ animation-delay:.05s; }
+  .hero h1.hero-anim{ animation-delay:.16s; }
+  .hero .hero-role.hero-anim{ animation-delay:.28s; }
+  .hero .hero-desc.hero-anim{ animation-delay:.4s; }
+  .hero .hero-ctas.hero-anim{ animation-delay:.52s; }
+  .hero .hero-meta.hero-anim{ animation-delay:.64s; }
+  @media (prefers-reduced-motion: reduce){
+    .hero-anim{ opacity:1; animation:none; }
+  }
+
+  /* name shimmer */
+  .name-shimmer{
+    background:linear-gradient(100deg, var(--text) 38%, var(--accent) 50%, var(--text) 62%);
+    background-size:220% 100%;
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    animation:shimmer 5s linear infinite;
+  }
+  @keyframes shimmer{ 0%{ background-position:200% 0; } 100%{ background-position:-20% 0; } }
+  @media (prefers-reduced-motion: reduce){ .name-shimmer{ animation:none; background-position:0 0; } }
+
+  /* nav entrance */
+  @keyframes navDrop{ from{ transform:translateY(-100%); } to{ transform:translateY(0); } }
+  header.nav{ animation:navDrop .6s cubic-bezier(.22,.9,.32,1) both; }
+  @media (prefers-reduced-motion: reduce){ header.nav{ animation:none; } }
 
   /* ---------- nav ---------- */
   header.nav{
@@ -112,6 +143,11 @@
   .brand-mark{ width:34px; height:34px; }
   .nav-links{ display:flex; gap:30px; font-size:.92rem; color:var(--text-dim); }
   .nav-links a{ position:relative; transition:color .2s ease; }
+  .nav-links a::after{
+    content:''; position:absolute; left:0; bottom:-6px; width:0; height:1.5px;
+    background:var(--accent); transition:width .25s ease;
+  }
+  .nav-links a:hover::after{ width:100%; }
   .nav-links a:hover{ color:var(--text); }
   .nav-right{ display:flex; align-items:center; gap:14px; }
   .theme-toggle{
@@ -201,7 +237,8 @@
 
   /* ---------- skills ---------- */
   .skill-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
-  .skill-card{ background:var(--bg-soft); border:1px solid var(--border); border-radius:var(--radius); padding:24px; }
+  .skill-card{ background:var(--bg-soft); border:1px solid var(--border); border-radius:var(--radius); padding:24px; transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease; }
+  .skill-card:hover{ transform:translateY(-3px); border-color:var(--accent); box-shadow:var(--shadow); }
   .skill-head{ display:flex; align-items:center; gap:9px; margin-bottom:16px; }
   .skill-head .node-dot{ width:7px; height:7px; border-radius:50%; background:var(--accent-2); }
   .skill-head h3{ font-family:var(--font-display); font-size:1rem; font-weight:600; }
@@ -214,7 +251,7 @@
     padding:28px; transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease;
     display:flex; flex-direction:column;
   }
-  .proj-card:hover{ transform:translateY(-4px); border-color:var(--accent); box-shadow:var(--shadow); }
+  .proj-card:hover{ transform:translateY(-6px) scale(1.012); border-color:var(--accent); box-shadow:var(--shadow); }
   .proj-tag{ font-family:var(--font-mono); font-size:.74rem; color:var(--accent-2); margin-bottom:10px; }
   .proj-title{ font-family:var(--font-display); font-weight:600; font-size:1.22rem; margin-bottom:10px; }
   .proj-desc{ color:var(--text-dim); font-size:.94rem; margin-bottom:18px; flex-grow:1; }
@@ -234,7 +271,9 @@
   .cert-item{
     display:grid; grid-template-columns:170px 1fr; gap:24px; padding:22px 0;
     border-bottom:1px solid var(--border); align-items:baseline;
+    transition:transform .2s ease, padding-left .2s ease;
   }
+  .cert-item:hover{ transform:translateX(4px); }
   .cert-tag{ font-family:var(--font-mono); font-size:.78rem; color:var(--accent); }
   .cert-name{ font-size:1rem; color:var(--text); }
 
@@ -348,11 +387,11 @@
       </svg>
     </div>
     <div class="wrap hero-inner">
-      <div class="badge"><span class="pulse"></span> Open to opportunities — Class of 2027</div>
-      <h1 class="hero-title">Hi, I'm Ramsha&nbsp;Fatima</h1>
-      <div class="hero-role"><span id="roleText"></span><span class="cursor"></span></div>
-      <p class="hero-desc">Final-year B.Tech CSE (AI &amp; ML) student who turns data, models, and curiosity into real, working software — from study agents to fraud detection tools.</p>
-      <div class="hero-ctas">
+      <div class="badge hero-anim"><span class="pulse"></span> Open to opportunities — Class of 2027</div>
+      <h1 class="hero-title hero-anim">Hi, I'm <span class="name-shimmer">Ramsha&nbsp;Fatima</span></h1>
+      <div class="hero-role hero-anim"><span id="roleText"></span><span class="cursor"></span></div>
+      <p class="hero-desc hero-anim">Final-year B.Tech CSE (AI &amp; ML) student who turns data, models, and curiosity into real, working software — from study agents to fraud detection tools.</p>
+      <div class="hero-ctas hero-anim">
         <a href="#projects" class="btn btn-primary">View Projects</a>
         <a href="resume.pdf" class="btn btn-ghost" download>
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
@@ -360,7 +399,7 @@
         </a>
         <a href="#contact" class="btn btn-ghost">Contact Me</a>
       </div>
-      <div class="hero-meta">
+      <div class="hero-meta hero-anim">
         <a href="https://github.com/ramshaa01" class="icon-link" aria-label="GitHub" target="_blank" rel="noopener">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2.2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.4-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.4 11.4 0 016 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.9 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
         </a>
@@ -547,7 +586,7 @@
           <div class="proj-tag">Hackathon · IIT Hyderabad</div>
           <div class="proj-title">SmartShield AI</div>
           <p class="proj-desc">A real-time UPI fraud detection system built for the IIT Hyderabad hackathon, flagging anomalies as transactions stream in.</p>
-          <div class="proj-stack"><span class="chip">React</span><span class="chip">Claude API</span><span class="chip">4-Factor Risk Model</span></div>
+          <div class="proj-stack"><span class="chip">React</span><span class="chip">GraphSAGE GNN</span><span class="chip">XGBoost</span><span class="chip">SHAP</span></div>
           <div class="proj-links">
             <a href="https://github.com/ramshaa01/smartshield-ai" target="_blank" rel="noopener">
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2.2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.4-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.4 11.4 0 016 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.9 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
@@ -563,7 +602,7 @@
         <div class="proj-card reveal">
           <div class="proj-tag">Web App</div>
           <div class="proj-title">Aura ATS</div>
-          <p class="proj-desc">A recruiter-facing Applicant Tracking System for moving candidates through every stage of hiring — built from the hiring side, as a counterpart to ResumeIQ's candidate-side scoring.</p>
+          <p class="proj-desc">An Applicant Tracking System web app to help recruiters move candidates through every stage of hiring.</p>
           <div class="proj-stack"><span class="chip">React</span><span class="chip">Vite</span></div>
           <div class="proj-links">
             <a href="https://github.com/ramshaa01/aura-ats" target="_blank" rel="noopener">
@@ -729,7 +768,17 @@
     tick();
   }
 
-  // Scroll reveal
+  // Scroll reveal (staggered within each grid/list)
+  const staggerGroups = document.querySelectorAll('.proj-grid, .skill-grid, .cert-list');
+  staggerGroups.forEach(group => {
+    Array.from(group.children).forEach((child, i) => {
+      if (child.classList.contains('reveal')) {
+        child.classList.add('stagger');
+        child.style.setProperty('--stagger-delay', `${Math.min(i * 90, 360)}ms`);
+      }
+    });
+  });
+
   const revealEls = document.querySelectorAll('.reveal');
   if ('IntersectionObserver' in window && !reduceMotion) {
     const io = new IntersectionObserver((entries) => {
